@@ -1,0 +1,2 @@
+# Import Qualcomm target initialization
+import /vendor/etc/init/hw/init.target.rc

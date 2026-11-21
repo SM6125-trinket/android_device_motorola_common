@@ -45,6 +45,11 @@ on post-fs-data
     # Create directory for cutback
     mkdir /data/vendor/misc/cutback 0770 radio wifi
 
+    # Create directories for wpa_supplicant
+    mkdir /data/vendor/wifi 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+
     # Imager tuning data for camera subsystem
     mkdir /data/vendor/misc/imager 0771 camera camera
 
@@ -90,6 +95,7 @@ on boot
     # Change owner ship of l5 laser calibration
     chown camera oem_5004 /mnt/vendor/persist/camera/focus/offset_cal
     chmod 0660 /mnt/vendor/persist/camera/focus/offset_cal
+    chown system system /sys/devices/virtual/laser/stmvl53l1/enable_sar
 
     # change permission for capsensor
     chmod 0660 /sys/class/capsense/reset

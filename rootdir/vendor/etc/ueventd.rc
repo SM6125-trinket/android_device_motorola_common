@@ -1,0 +1,102 @@
+firmware_directories /vendor/firmware_mnt/image/
+
+# GPU / ION / Display
+/dev/kgsl-3d0             0666   root       root
+/dev/ion                  0666   root       system
+/dev/msm_hdcp             0660   system     graphics
+/dev/mdss_rotator         0664   system     graphics
+
+# FastRPC / QSEECOM / Crypto / Sensors / Subsystems
+/dev/adsprpc-smd          0666   system     system
+/dev/adsprpc-smd-secure   0666   system     system
+/dev/qseecom              0660   system     drmrpc
+/dev/qce                  0660   system     drmrpc
+/dev/sensors              0660   system     system
+/dev/iio:device*          0660   system     system
+/dev/subsys_*             0640   root       system
+/dev/rtc0                 0660   system     system
+
+# Fuel gauge (QTI QG / hvdcp_opti)
+/dev/qg                   0660   system     system
+/dev/qg_battery           0660   system     system
+
+# Camera / Video / JPEG
+/dev/video*               0660   system     camera
+/dev/media*               0660   system     camera
+/dev/v4l-subdev*          0660   system     camera
+/dev/jpeg*                0660   system     camera
+
+# Audio / Sound
+/dev/apr_apps2            0660   system     audio
+/dev/avtimer              0660   system     audio
+/dev/msm_aac*             0660   system     audio
+/dev/msm_acdb             0660   system     audio
+/dev/msm_alac*            0660   system     audio
+/dev/msm_amr*             0660   system     audio
+/dev/msm_ape*             0660   system     audio
+/dev/msm_audio_cal        0660   system     audio
+/dev/msm_cirrus_playback  0660   system     audio
+/dev/msm_evrc*            0660   system     audio
+/dev/msm_g711*            0660   system     audio
+/dev/msm_hweffects        0660   system     audio
+/dev/msm_mp3              0660   system     audio
+/dev/msm_multi_aac        0660   system     audio
+/dev/msm_qcelp*           0660   system     audio
+/dev/msm_rtac             0660   system     audio
+/dev/msm_wma*             0660   system     audio
+/dev/usf1                 0660   system     system
+/dev/wcd*                 0660   system     audio
+
+# Connectivity / Radio / IPA / Diag / TTY / WLAN / BT
+/dev/diag                 0660   system     diag
+/dev/ipa                  0660   radio      radio
+/dev/wwan_ioctl           0660   radio      radio
+/dev/ipaNatTable          0660   radio      radio
+/dev/ipa_odl_ctl          0660   radio      radio
+/dev/ipa_adpl             0660   radio      radio
+/dev/dpl_ctrl             0660   radio      radio
+/dev/rmnet_ctrl*          0660   radio      radio
+/dev/at_mdm0              0660   radio      radio
+/dev/smd3                 0660   bluetooth  bluetooth
+/dev/smd2                 0660   bluetooth  bluetooth
+/dev/smd7                 0660   bluetooth  bluetooth
+/dev/smd8                 0660   radio      radio
+/dev/smd11                0660   radio      radio
+/dev/smdcntl*             0660   radio      radio
+/dev/ttyHS0               0660   bluetooth  bluetooth
+/dev/btpower              0660   bluetooth  bluetooth
+/dev/wlan                 0660   wifi       wifi
+/dev/rfkill               0660   wifi       wifi
+/dev/hsicctl*             0640   radio      radio
+/dev/msm_sps              0660   system     system
+/dev/rpmsg_ctrl*          0660   system     system
+
+# Latency / Performance
+/dev/cpu_dma_latency      0660   system     system
+/dev/network_latency      0660   system     system
+/dev/network_throughput   0660   system     system
+/dev/memory_bandwidth     0660   system     system
+
+# Fingerprint / Motorola misc
+/dev/esfp0                0660   system     system
+/dev/focaltech_fp         0660   system     system
+/dev/fpsensor             0660   system     system
+/dev/goodix_fp            0660   system     system
+/dev/silead_fp            0660   system     system
+/dev/mmi_sys_temp         0660   root       system
+
+# Display / DRM / Framebuffer sysfs
+/sys/devices/virtual/graphics/fb*   hpd                  0664   system     graphics
+/sys/devices/virtual/graphics/fb*   res_info             0664   system     graphics
+/sys/devices/virtual/graphics/fb*   vendor_name          0664   system     graphics
+/sys/devices/virtual/graphics/fb*   product_description  0664   system     graphics
+/sys/devices/virtual/graphics/fb*   video_mode           0664   system     graphics
+/sys/devices/virtual/graphics/fb*   format_3d            0664   system     graphics
+/sys/devices/virtual/graphics/fb*   s3d_mode             0664   system     graphics
+/sys/devices/virtual/graphics/fb*   idle_time            0664   system     graphics
+/sys/devices/virtual/graphics/fb*   dynamic_fps          0664   system     graphics
+/sys/devices/virtual/graphics/fb*   dyn_pu               0664   system     graphics
+/sys/devices/virtual/graphics/fb*   modes                0664   system     graphics
+/sys/devices/virtual/graphics/fb*   mode                 0664   system     graphics
+/sys/class/drm/card0-DSI-1*         status               0664   system     graphics
+/sys/class/drm/card0-DSI-1*         modes                0664   system     graphics

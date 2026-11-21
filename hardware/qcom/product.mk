@@ -178,10 +178,116 @@ ifneq ($(ROM_INCLUDES_QCOM_COMMON),true)
   $(call inherit-product-if-exists, hardware/qcom-caf/common/common.mk)
   $(call inherit-product-if-exists, vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um/ipacm_vendor_product.mk)
 
+  ifneq (,$(filter dsprpcd,$(TARGET_COMMON_QTI_COMPONENTS)))
+    ifneq (,$(wildcard vendor/qcom/common/vendor/dsprpcd/dsprpcd-vendor.mk))
+      PRODUCT_SOONG_NAMESPACES += \
+          vendor/qcom/common/vendor/dsprpcd
+
+      PRODUCT_PACKAGES += \
+          libfastcvopt
+
+      ifeq ($(TARGET_KERNEL_VERSION),4.14)
+        PRODUCT_COPY_FILES += \
+            $(COMMON_PATH)/hardware/qcom/vendor.qti.adsprpc-sscrpc-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.qti.adsprpc-sscrpc-service.rc
+      endif
+
+      PRODUCT_COPY_FILES += \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/bin/adsprpcd:$(TARGET_COPY_OUT_VENDOR)/bin/adsprpcd \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/bin/cdsprpcd:$(TARGET_COPY_OUT_VENDOR)/bin/cdsprpcd \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/bin/dspservice:$(TARGET_COPY_OUT_VENDOR)/bin/dspservice \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/bin/sensors.qti:$(TARGET_COPY_OUT_VENDOR)/bin/sensors.qti \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/bin/sscrpcd:$(TARGET_COPY_OUT_VENDOR)/bin/sscrpcd \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/etc/init/init.vendor.sensors.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.vendor.sensors.rc \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/etc/init/vendor.qti.cdsprpc-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.qti.cdsprpc-service.rc \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/etc/init/vendor.qti.hardware.dsp@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.qti.hardware.dsp@1.0-service.rc \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/etc/init/vendor.sensors.qti.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.sensors.qti.rc \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/etc/seccomp_policy/vendor.qti.hardware.dsp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/vendor.qti.hardware.dsp.policy \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib/libadsp_default_listener.so:$(TARGET_COPY_OUT_VENDOR)/lib/libadsp_default_listener.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib/libadsprpc.so:$(TARGET_COPY_OUT_VENDOR)/lib/libadsprpc.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib/libcdsp_default_listener.so:$(TARGET_COPY_OUT_VENDOR)/lib/libcdsp_default_listener.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib/libcdsprpc.so:$(TARGET_COPY_OUT_VENDOR)/lib/libcdsprpc.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib/libfastcvdsp_stub.so:$(TARGET_COPY_OUT_VENDOR)/lib/libfastcvdsp_stub.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib/libmdsprpc.so:$(TARGET_COPY_OUT_VENDOR)/lib/libmdsprpc.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib/libsdsprpc.so:$(TARGET_COPY_OUT_VENDOR)/lib/libsdsprpc.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib/libsensorcal.so:$(TARGET_COPY_OUT_VENDOR)/lib/libsensorcal.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib/libsensorslog.so:$(TARGET_COPY_OUT_VENDOR)/lib/libsensorslog.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib/libssc.so:$(TARGET_COPY_OUT_VENDOR)/lib/libssc.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib/libssc_default_listener.so:$(TARGET_COPY_OUT_VENDOR)/lib/libssc_default_listener.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib/libsysmon_cdsp_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib/libsysmon_cdsp_skel.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib/vendor.qti.hardware.dsp@1.0.so:$(TARGET_COPY_OUT_VENDOR)/lib/vendor.qti.hardware.dsp@1.0.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib64/libadsp_default_listener.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libadsp_default_listener.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib64/libadsprpc.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libadsprpc.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib64/libcdsp_default_listener.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libcdsp_default_listener.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib64/libcdsprpc.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libcdsprpc.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib64/libfastcvdsp_stub.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libfastcvdsp_stub.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib64/libmdsprpc.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libmdsprpc.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib64/libsdsprpc.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libsdsprpc.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib64/libsensorcal.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libsensorcal.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib64/libsensorslog.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libsensorslog.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib64/libssc.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libssc.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib64/libssc_default_listener.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libssc_default_listener.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib64/libsysmon_cdsp_skel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libsysmon_cdsp_skel.so \
+          vendor/qcom/common/vendor/dsprpcd/proprietary/vendor/lib64/vendor.qti.hardware.dsp@1.0.so:$(TARGET_COPY_OUT_VENDOR)/lib64/vendor.qti.hardware.dsp@1.0.so
+    endif
+  endif
+
   ifneq (,$(filter keymaster,$(TARGET_COMMON_QTI_COMPONENTS)))
     $(call inherit-product-if-exists, vendor/qcom/common/vendor/keymaster/keymaster-vendor.mk)
   endif
 
+  ifneq (,$(filter qseecomd,$(TARGET_COMMON_QTI_COMPONENTS)))
+    ifeq ($(call is-kernel-greater-than-or-equal-to,5.4),true)
+      TARGET_QSEECOMD_COMPONENT_VARIANT ?= qseecomd
+    else
+      TARGET_QSEECOMD_COMPONENT_VARIANT ?= qseecomd-legacy
+    endif
+    ifneq (,$(wildcard vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/$(TARGET_QSEECOMD_COMPONENT_VARIANT)-vendor.mk))
+      PRODUCT_PACKAGES += \
+          libdrm.vendor
+
+      PRODUCT_COPY_FILES += \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/bin/qseecomd:$(TARGET_COPY_OUT_VENDOR)/bin/qseecomd \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/etc/init/qseecomd.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/qseecomd.rc \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libGPQTEEC_vendor.so:$(TARGET_COPY_OUT_VENDOR)/lib/libGPQTEEC_vendor.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libGPTEE_vendor.so:$(TARGET_COPY_OUT_VENDOR)/lib/libGPTEE_vendor.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libGPreqcancel.so:$(TARGET_COPY_OUT_VENDOR)/lib/libGPreqcancel.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libGPreqcancel_svc.so:$(TARGET_COPY_OUT_VENDOR)/lib/libGPreqcancel_svc.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libQSEEComAPI.so:$(TARGET_COPY_OUT_VENDOR)/lib/libQSEEComAPI.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libQTEEConnector_vendor.so:$(TARGET_COPY_OUT_VENDOR)/lib/libQTEEConnector_vendor.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libbase64.so:$(TARGET_COPY_OUT_VENDOR)/lib/libbase64.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libcpion.so:$(TARGET_COPY_OUT_VENDOR)/lib/libcpion.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libcppf.so:$(TARGET_COPY_OUT_VENDOR)/lib/libcppf.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libdrmfs.so:$(TARGET_COPY_OUT_VENDOR)/lib/libdrmfs.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libdrmtime.so:$(TARGET_COPY_OUT_VENDOR)/lib/libdrmtime.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libminkdescriptor.so:$(TARGET_COPY_OUT_VENDOR)/lib/libminkdescriptor.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libminksocket.so:$(TARGET_COPY_OUT_VENDOR)/lib/libminksocket.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libops.so:$(TARGET_COPY_OUT_VENDOR)/lib/libops.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libqisl.so:$(TARGET_COPY_OUT_VENDOR)/lib/libqisl.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/librpmb.so:$(TARGET_COPY_OUT_VENDOR)/lib/librpmb.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libssd.so:$(TARGET_COPY_OUT_VENDOR)/lib/libssd.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/libtzdrmgenprov.so:$(TARGET_COPY_OUT_VENDOR)/lib/libtzdrmgenprov.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib/vendor.qti.hardware.qteeconnector@1.0.so:$(TARGET_COPY_OUT_VENDOR)/lib/vendor.qti.hardware.qteeconnector@1.0.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libGPQTEEC_vendor.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libGPQTEEC_vendor.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libGPTEE_vendor.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libGPTEE_vendor.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libGPreqcancel.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libGPreqcancel.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libGPreqcancel_svc.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libGPreqcancel_svc.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libQSEEComAPI.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libQSEEComAPI.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libQTEEConnector_vendor.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libQTEEConnector_vendor.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libbase64.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libbase64.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libcpion.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libcpion.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libdrmfs.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libdrmfs.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libdrmtime.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libdrmtime.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libminkdescriptor.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libminkdescriptor.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libminksocket.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libminksocket.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libops.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libops.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libqisl.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libqisl.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/librpmb.so:$(TARGET_COPY_OUT_VENDOR)/lib64/librpmb.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libssd.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libssd.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libtrustedapploader.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libtrustedapploader.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/libtzdrmgenprov.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libtzdrmgenprov.so \
+          vendor/qcom/common/vendor/$(TARGET_QSEECOMD_COMPONENT_VARIANT)/proprietary/vendor/lib64/vendor.qti.hardware.qteeconnector@1.0.so:$(TARGET_COPY_OUT_VENDOR)/lib64/vendor.qti.hardware.qteeconnector@1.0.so
+    endif
+  endif
 endif
 
 # QCOM Data
