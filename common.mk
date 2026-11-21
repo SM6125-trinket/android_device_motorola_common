@@ -146,7 +146,9 @@ TARGET_RECOVERY_FSTAB := $(fstab_path)
 
 # Rootdir
 $(call copy-files-recursive,$(COMMON_PATH)/rootdir/vendor,$(TARGET_COPY_OUT_VENDOR))
+ifneq ($(DEVICE_PATH),)
 $(call copy-files-recursive,$(DEVICE_PATH)/vendor,$(TARGET_COPY_OUT_VENDOR))
+endif
 $(call copy-files-recursive,$(PLATFORM_COMMON_PATH)/rootdir/vendor,$(TARGET_COPY_OUT_VENDOR))
 
 # SKUs
