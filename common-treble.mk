@@ -75,6 +75,24 @@ ifeq ($(PRODUCT_USES_MTK_HARDWARE),true)
   PRODUCT_PACKAGES += \
       android.hardware.health@2.1-impl \
       android.hardware.health@2.1-service
+else ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
+  PRODUCT_PACKAGES += \
+      android.hardware.health@1.0.vendor \
+      android.hardware.health@2.0.vendor \
+      android.hardware.health@2.1.vendor
+  $(call inherit-product, vendor/qcom/opensource/healthd-ext/health-vendor-product.mk)
+endif
+
+# Gatekeeper & Keymaster
+ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
+  PRODUCT_PACKAGES += \
+      android.hardware.gatekeeper@1.0.vendor \
+      android.hardware.keymaster@4.0.vendor \
+      android.hardware.keymaster@4.1.vendor
+else
+  PRODUCT_PACKAGES += \
+      android.hardware.gatekeeper@1.0-service.software \
+      android.hardware.keymaster@4.1-service
 endif
 
 # Lights HAL

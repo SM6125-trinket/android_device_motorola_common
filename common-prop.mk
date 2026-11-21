@@ -21,7 +21,7 @@ PRODUCT_ODM_PROPERTIES += \
     ro.vendor.audio.sdk.fluencetype=fluence
 
 # Bluetooth
-PRODUCT_PROPERTY_OVERRIDES += \
+PRODUCT_PRODUCT_PROPERTIES += \
     bluetooth.profile.asha.central.enabled=true \
     bluetooth.profile.a2dp.source.enabled=true \
     bluetooth.profile.avrcp.target.enabled=true \
@@ -73,6 +73,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.product.model=$(PRODUCT_MODEL)
 
+ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
+  PRODUCT_VENDOR_PROPERTIES += \
+      ro.hardware.egl=adreno \
+      ro.hardware.vulkan=adreno \
+      ro.opengles.version=196610
+endif
+
 # DRM service
 PRODUCT_PROPERTY_OVERRIDES += \
     drm.service.enabled=true
@@ -80,13 +87,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Encryption
 ## Avoid Adoptable double encryption
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.crypto.allow_encrypt_override=true
-
-## Enforce use of new dm-default-key API
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.crypto.volume.metadata.method=dm-default-key \
-    ro.crypto.dm_default_key.options_format.version=2 \
+    ro.crypto.allow_encrypt_override=true \
     ro.crypto.volume.options=::v2
+
+## Enforce use of new dm-default-key API (requires kernel >= 4.19)
+ifeq ($(call is-kernel-greater-than-or-equal-to,4.19),true)
+  PRODUCT_PROPERTY_OVERRIDES += \
+      ro.crypto.volume.metadata.method=dm-default-key \
+      ro.crypto.dm_default_key.options_format.version=2
+endif
 
 ## Reduce cost of scrypt for FBE CE decryption
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -120,7 +129,7 @@ ifeq ($(call device-has-characteristic,hfr),true)
 endif
 
 # LMKd
-PRODUCT_PROPERTY_OVERRIDES += \
+PRODUCT_PRODUCT_PROPERTIES += \
     ro.lmk.thrashing_limit=30 \
     ro.lmk.swap_free_low_percentage=10 \
     ro.lmk.psi_partial_stall_ms=200 \
@@ -160,7 +169,7 @@ PRODUCT_VENDOR_PROPERTIES += \
     ro.recovery.usb.fastboot.pid=2E81
 
 # RIL
-PRODUCT_PROPERTY_OVERRIDES += \
+PRODUCT_PRODUCT_PROPERTIES += \
     ril.subscription.types=NV,RUIM
 
 ## Enable advanced power saving for data connectivity
@@ -190,7 +199,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.msgtunnel.start=true
 
 ## Platform specific default properties
-PRODUCT_PROPERTY_OVERRIDES += \
+PRODUCT_PRODUCT_PROPERTIES += \
     persist.data.qmi.adb_logmask=0
 
 ## RemoteFS Storage

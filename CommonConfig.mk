@@ -23,6 +23,7 @@ endif
 
 ## QCOM
 ifeq ($(PRODUCT_USES_QCOM_HARDWARE),true)
+  BOARD_USES_QCOM_HARDWARE := true
   include $(COMMON_PATH)/hardware/qcom/board.mk
 endif
 
