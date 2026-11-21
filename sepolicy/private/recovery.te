@@ -1,0 +1,4 @@
+# Allow recovery to traverse QPNP SMB5 battery sysfs directories
+recovery_only(`
+  r_dir_file(recovery, sysfs_batteryinfo)
+')
