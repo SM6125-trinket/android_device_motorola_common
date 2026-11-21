@@ -1,5 +1,11 @@
 allow vendor_thermal-engine thermal_device:chr_file { rw_file_perms ioctl };
 r_dir_file(vendor_thermal-engine, sysfs_batteryinfo)
+allow vendor_thermal-engine sysfs_batteryinfo:file w_file_perms;
+allow vendor_thermal-engine self:netlink_generic_socket create_socket_perms_no_ioctl;
+allow vendor_thermal-engine proc_loadavg:file r_file_perms;
+allow vendor_thermal-engine proc_stat:file r_file_perms;
 
 # Mot props
 get_prop(vendor_thermal-engine, vendor_mot_prop)
+
+dontaudit vendor_thermal-engine self:capability dac_override;

@@ -14,7 +14,6 @@ genfscon proc /hw u:object_r:vendor_proc_hw:s0
 
 # Sched
 genfscon proc /sys/kernel/sched_boost u:object_r:vendor_proc_kernel_sched:s0
-genfscon proc /sys/kernel/sched_energy_aware u:object_r:vendor_proc_kernel_sched:s0
 
 # Touchpanel
 genfscon sysfs /class/touchscreen u:object_r:vendor_sysfs_touchpanel:s0

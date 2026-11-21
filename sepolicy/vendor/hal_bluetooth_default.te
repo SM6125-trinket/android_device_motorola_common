@@ -1,0 +1,2 @@
+# Mot props
+get_prop(hal_bluetooth_default, vendor_mot_prop)

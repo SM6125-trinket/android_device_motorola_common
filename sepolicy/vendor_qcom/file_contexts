@@ -6,3 +6,6 @@
 
 # WLAN
 /vendor/bin/cnss-daemon_moto u:object_r:vendor_wcnss_service_exec:s0
+
+# Thermal
+/vendor/bin/thermal-engine-v2 u:object_r:vendor_thermal-engine_exec:s0

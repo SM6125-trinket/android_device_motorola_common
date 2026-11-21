@@ -1,0 +1,5 @@
+# Wakeup sysfs entries nested under vendor_sysfs_camera and sysfs_rtc
+allow system_suspend_server sysfs_rtc:dir r_dir_perms;
+allow system_suspend_server sysfs_rtc:file r_file_perms;
+allow system_suspend_server vendor_sysfs_camera:dir r_dir_perms;
+allow system_suspend_server vendor_sysfs_camera:file r_file_perms;

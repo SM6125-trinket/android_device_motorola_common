@@ -21,6 +21,9 @@
 # FSG
 /vendor/fsg u:object_r:vendor_fsg_file:s0
 
+# Gatekeeper & Keymaster
+/vendor/bin/hw/android\.hardware\.gatekeeper@1\.0-service\.software u:object_r:hal_gatekeeper_default_exec:s0
+
 # Init Scripts
 /vendor/bin/init\.mmi\.touch\.sh u:object_r:vendor_moto_init_shell_exec:s0
 /vendor/bin/init\.mmi\.usb\.sh u:object_r:vendor_moto_init_shell_exec:s0
@@ -40,6 +43,12 @@
 # RILD Cutback
 /data/vendor/misc/cutback(/.*)? u:object_r:cutback_data_file:s0
 #/dev/socket/cutback u:object_r:cutback_socket:s0
+
+# RILD MDM persist
+/mnt/vendor/persist/mdm(/.*)? u:object_r:vendor_persist_mdm_file:s0
+
+# Wifi
+/dev/rfkill u:object_r:vendor_rfkill_device:s0
 
 # Rootfs
 /persist u:object_r:rootfs:s0

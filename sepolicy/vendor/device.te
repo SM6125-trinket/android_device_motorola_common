@@ -4,3 +4,6 @@ type vendor_utags_block_device, dev_type;
 
 # Thermal
 type thermal_device, dev_type;
+
+# Wifi
+type vendor_rfkill_device, dev_type;
