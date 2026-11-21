@@ -342,6 +342,10 @@ endif
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/hardware/qcom/permissions/privapp-permissions-ims.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-ims.xml
 
+# Recovery
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/init.recovery.qcom.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.qcom.rc
+
 # Thermal
 PRODUCT_SOONG_NAMESPACES += \
     hardware/qcom-caf/thermal
