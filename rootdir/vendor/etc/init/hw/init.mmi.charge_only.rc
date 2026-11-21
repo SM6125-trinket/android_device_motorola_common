@@ -1,5 +1,5 @@
 on charger
-    mount_all /vendor/etc/charger_fstab.qti --early
+    mount_all /vendor/etc/fstab.${ro.hardware} --early
 
     # Set permissions
     chown radio wakelock /sys/power/wake_lock
@@ -29,10 +29,13 @@ on charger
     write /sys/devices/system/cpu/cpu7/online 0
 
 on charger && property:ro.hardware=qcom
+    mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
+    exec u:r:vendor_qti_init_shell:s0 -- /vendor/bin/init.qti.chg_policy.sh
     enable charger
     start charger
+    start vendor.hvdcp_opti
 
-service vendor.thermal-com /vendor/bin/thermal-engine --minimode
+service vendor.thermal-com /vendor/bin/thermal-engine-v2 --minimode
     class charger
     user root
     group root system oem_2907

@@ -1,0 +1,2 @@
+# OEM Fast Charger status (/sys/class/power_supply/battery/charge_rate)
+allow system_server sysfs_oem_fastcharge:file r_file_perms;

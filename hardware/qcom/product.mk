@@ -178,6 +178,10 @@ ifneq ($(ROM_INCLUDES_QCOM_COMMON),true)
   $(call inherit-product-if-exists, hardware/qcom-caf/common/common.mk)
   $(call inherit-product-if-exists, vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um/ipacm_vendor_product.mk)
 
+  ifneq (,$(filter charging,$(TARGET_COMMON_QTI_COMPONENTS)))
+    $(call inherit-product-if-exists, vendor/qcom/common/vendor/charging/charging-vendor.mk)
+  endif
+
   ifneq (,$(filter dsprpcd,$(TARGET_COMMON_QTI_COMPONENTS)))
     ifneq (,$(wildcard vendor/qcom/common/vendor/dsprpcd/dsprpcd-vendor.mk))
       PRODUCT_SOONG_NAMESPACES += \

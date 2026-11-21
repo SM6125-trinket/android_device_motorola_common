@@ -117,10 +117,29 @@ on boot
     # Create qmux_radio socket dir for QtiBus IPC (ril_ipc socket)
     mkdir /dev/socket/qmux_radio 0770 radio radio
 
+    # Charging Control
+    chown system system /sys/class/power_supply/battery/input_suspend
+    chmod 0664 /sys/class/power_supply/battery/input_suspend
+
     start vendor.qcrild
 
 on post-fs-data
+    mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
     setprop vold.post_fs_data_done 1
+
+on early-boot
+    exec u:r:vendor_qti_init_shell:s0 -- /vendor/bin/init.qti.chg_policy.sh
+    chmod 0664 /sys/class/power_supply/battery/system_temp_level
+    chmod 0664 /sys/class/power_supply/battery/charge_control_limit
+
+service vendor.hvdcp_opti /vendor/bin/hvdcp_opti
+    class main
+    user system
+    group system wakelock
+    capabilities WAKE_ALARM
+
+on property:persist.vendor.hvdcp_opti.start=2
+    stop vendor.hvdcp_opti
 
 service vendor.irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     class core
